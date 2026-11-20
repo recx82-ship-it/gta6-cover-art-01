@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunset Cover Studio — GTA-style cover maker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">SC</span>
+    <div>
+      <h1>Sunset Cover Studio</h1>
+      <p>Turn any photo into poster-style cover art. Offline — photos never leave your machine.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button id="use-samples" type="button" class="btn ghost">Use sample photos</button>
+    <label class="btn primary" for="photo">Add photos</label>
+    <input id="photo" type="file" accept="image/*" multiple hidden>
+  </div>
+</header>
+
+<main class="studio">
+  <section class="preview-pane">
+    <div class="canvas-wrap" id="canvas-wrap">
+      <canvas id="preview" width="1080" height="1080"></canvas>
+      <div class="hint" id="hint">Drop photos anywhere, or add some to begin.</div>
+    </div>
+    <div class="panel-strip" id="slots" aria-label="Panels"></div>
+    <p class="tip">Click a panel to select it, then click a photo to fill it. Drag the cover to move the selected photo, scroll to zoom it.</p>
+  </section>
+
+  <aside class="controls">
+    <section class="group">
+      <h2>Photos</h2>
+      <div class="photo-row" id="photos"></div>
+      <div class="row">
+        <button id="fill-all" type="button" class="btn">Fill every panel</button>
+        <button id="shuffle" type="button" class="btn">Shuffle crops</button>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Layout</h2>
+      <div class="choices" id="layouts">
+        <button type="button" data-layout="full">Full bleed</button>
+        <button type="button" data-layout="duo">Duo split</button>
+        <button type="button" data-layout="hero">Hero + two</button>
+        <button type="button" data-layout="grid">Four grid</button>
+        <button type="button" data-layout="tilt">Tilted snaps</button>
+        <button type="button" data-layout="strips">Strip trio</button>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Colour grade</h2>
+      <div class="choices" id="grades">
+        <button type="button" data-grade="sunset">Sunset</button>
+        <button type="button" data-grade="neon">Neon Vice</button>
+        <button type="button" data-grade="heat">Heat</button>
+        <button type="button" data-grade="teal">Teal Noir</button>
+        <button type="button" data-grade="mono">Mono Pop</button>
+      </div>
+      <label class="check"><input type="checkbox" id="fx-halftone" checked> Halftone dots</label>
+      <label class="check"><input type="checkbox" id="fx-grain" checked> Film grain</label>
+      <label class="check"><input type="checkbox" id="fx-vignette" checked> Vignette</label>
+      <label class="check"><input type="checkbox" id="fx-ink" checked> Inked borders</label>
+    </section>
+
+    <section class="group">
+      <h2>Caption</h2>
+      <label class="field">Title
+        <input id="title" type="text" value="Sunset Heist" maxlength="32" autocomplete="off">
+      </label>
+      <label class="field">Subtitle
+        <input id="subtitle" type="text" value="one last ride" maxlength="48" autocomplete="off">
+      </label>
+      <div class="row">
+        <span class="field-label">Title colour</span>
+        <div class="swatches" id="title-colors">
+          <button type="button" data-color="#ffffff" style="background:#ffffff" aria-label="White"></button>
+          <button type="button" data-color="#ffd166" style="background:#ffd166" aria-label="Gold"></button>
+          <button type="button" data-color="#ff5e78" style="background:#ff5e78" aria-label="Pink"></button>
+          <button type="button" data-color="#2de2ff" style="background:#2de2ff" aria-label="Cyan"></button>
+        </div>
+      </div>
+      <div class="row">
+        <span class="field-label">Title at</span>
+        <div class="choices small" id="title-pos">
+          <button type="button" data-pos="bottom">Bottom</button>
+          <button type="button" data-pos="top">Top</button>
+        </div>
+      </div>
+      <label class="field">Zoom selected photo
+        <input id="zoom" type="range" min="100" max="260" value="100">
+      </label>
+    </section>
+
+    <section class="group">
+      <h2>Export</h2>
+      <div class="choices" id="sizes">
+        <button type="button" data-size="1080x1080">1080 × 1080</button>
+        <button type="button" data-size="1080x1350">1080 × 1350</button>
+        <button type="button" data-size="1920x1080">1920 × 1080</button>
+      </div>
+      <div class="row">
+        <button id="export" type="button" class="btn primary">Export PNG</button>
+        <button id="export-all" type="button" class="btn">Export all 3</button>
+      </div>
+      <p class="status" id="status">Ready.</p>
+    </section>
+  </aside>
+</main>
+
+<script type="module" src="src/app.js"></script>
+</body>
+</html>
