@@ -8,111 +8,79 @@
 </head>
 <body>
 <header class="topbar">
-  <div class="brand">
-    <span class="brand-mark">SC</span>
-    <div>
-      <h1>Sunset Cover Studio</h1>
-      <p>Turn any photo into poster-style cover art. Offline — photos never leave your machine.</p>
-    </div>
-  </div>
-  <div class="top-actions">
-    <button id="use-samples" type="button" class="btn ghost">Use sample photos</button>
-    <label class="btn primary" for="photo">Add photos</label>
-    <input id="photo" type="file" accept="image/*" multiple hidden>
-  </div>
+  <div class="brand"><span class="brand-star">★</span> Sunset Cover Studio</div>
+  <p class="tagline">Turn any photo into GTA-style poster cover art — offline, in your browser.</p>
 </header>
 
 <main class="studio">
   <section class="preview-pane">
-    <div class="canvas-wrap" id="canvas-wrap">
-      <canvas id="preview" width="1080" height="1080"></canvas>
-      <div class="hint" id="hint">Drop photos anywhere, or add some to begin.</div>
-    </div>
-    <div class="panel-strip" id="slots" aria-label="Panels"></div>
-    <p class="tip">Click a panel to select it, then click a photo to fill it. Drag the cover to move the selected photo, scroll to zoom it.</p>
+    <canvas id="preview" width="1080" height="1080" aria-label="Cover preview"></canvas>
+    <p class="hint">Drag the cover to pan the active panel · scroll to zoom it · click a panel below to switch it.</p>
+    <div id="slots" class="slots" aria-label="Panels"></div>
   </section>
 
   <aside class="controls">
     <section class="group">
-      <h2>Photos</h2>
-      <div class="photo-row" id="photos"></div>
-      <div class="row">
-        <button id="fill-all" type="button" class="btn">Fill every panel</button>
-        <button id="shuffle" type="button" class="btn">Shuffle crops</button>
-      </div>
+      <h2>1 · Photos</h2>
+      <label class="upload" for="photo">＋ Add photos from your machine</label>
+      <input id="photo" type="file" accept="image/*" multiple hidden>
+      <p class="note">Up to 4 photos. They never leave your machine — nothing is uploaded.</p>
+      <div id="thumbs" class="thumbs" aria-label="Your photos"></div>
+      <button id="shuffle" type="button" class="ghost">Shuffle crops</button>
     </section>
 
     <section class="group">
-      <h2>Layout</h2>
-      <div class="choices" id="layouts">
-        <button type="button" data-layout="full">Full bleed</button>
-        <button type="button" data-layout="duo">Duo split</button>
-        <button type="button" data-layout="hero">Hero + two</button>
-        <button type="button" data-layout="grid">Four grid</button>
-        <button type="button" data-layout="tilt">Tilted snaps</button>
-        <button type="button" data-layout="strips">Strip trio</button>
-      </div>
+      <h2>2 · Layout</h2>
+      <div id="layouts" class="picker" aria-label="Layout"></div>
     </section>
 
     <section class="group">
-      <h2>Colour grade</h2>
-      <div class="choices" id="grades">
-        <button type="button" data-grade="sunset">Sunset</button>
-        <button type="button" data-grade="neon">Neon Vice</button>
-        <button type="button" data-grade="heat">Heat</button>
-        <button type="button" data-grade="teal">Teal Noir</button>
-        <button type="button" data-grade="mono">Mono Pop</button>
-      </div>
-      <label class="check"><input type="checkbox" id="fx-halftone" checked> Halftone dots</label>
-      <label class="check"><input type="checkbox" id="fx-grain" checked> Film grain</label>
-      <label class="check"><input type="checkbox" id="fx-vignette" checked> Vignette</label>
-      <label class="check"><input type="checkbox" id="fx-ink" checked> Inked borders</label>
+      <h2>3 · Colour grade</h2>
+      <div id="grades" class="picker" aria-label="Colour grade"></div>
     </section>
 
     <section class="group">
-      <h2>Caption</h2>
+      <h2>4 · Caption</h2>
       <label class="field">Title
-        <input id="title" type="text" value="Sunset Heist" maxlength="32" autocomplete="off">
+        <input id="title" type="text" value="Sunset Heist" maxlength="24">
       </label>
       <label class="field">Subtitle
-        <input id="subtitle" type="text" value="one last ride" maxlength="48" autocomplete="off">
+        <input id="subtitle" type="text" value="Vice Coast nights" maxlength="32">
       </label>
       <div class="row">
-        <span class="field-label">Title colour</span>
-        <div class="swatches" id="title-colors">
-          <button type="button" data-color="#ffffff" style="background:#ffffff" aria-label="White"></button>
-          <button type="button" data-color="#ffd166" style="background:#ffd166" aria-label="Gold"></button>
-          <button type="button" data-color="#ff5e78" style="background:#ff5e78" aria-label="Pink"></button>
-          <button type="button" data-color="#2de2ff" style="background:#2de2ff" aria-label="Cyan"></button>
-        </div>
+        <label class="field">Title colour
+          <input id="title-color" type="color" value="#ffffff">
+        </label>
+        <label class="field">Caption position
+          <select id="caption-pos">
+            <option value="bottom" selected>Bottom</option>
+            <option value="top">Top</option>
+          </select>
+        </label>
       </div>
-      <div class="row">
-        <span class="field-label">Title at</span>
-        <div class="choices small" id="title-pos">
-          <button type="button" data-pos="bottom">Bottom</button>
-          <button type="button" data-pos="top">Top</button>
-        </div>
-      </div>
-      <label class="field">Zoom selected photo
-        <input id="zoom" type="range" min="100" max="260" value="100">
-      </label>
     </section>
 
     <section class="group">
-      <h2>Export</h2>
-      <div class="choices" id="sizes">
-        <button type="button" data-size="1080x1080">1080 × 1080</button>
-        <button type="button" data-size="1080x1350">1080 × 1350</button>
-        <button type="button" data-size="1920x1080">1920 × 1080</button>
+      <h2>5 · Finish</h2>
+      <div class="checks">
+        <label><input id="fx-halftone" type="checkbox" checked> Halftone dots</label>
+        <label><input id="fx-grain" type="checkbox" checked> Film grain</label>
+        <label><input id="fx-vignette" type="checkbox" checked> Vignette</label>
+        <label><input id="fx-badge" type="checkbox" checked> Vice badge</label>
       </div>
+      <div id="sizes" class="picker" aria-label="Export size"></div>
       <div class="row">
-        <button id="export" type="button" class="btn primary">Export PNG</button>
-        <button id="export-all" type="button" class="btn">Export all 3</button>
+        <button id="export-one" type="button" class="primary">Export PNG</button>
+        <button id="export-all" type="button" class="primary wide">Export all 3 sizes</button>
       </div>
-      <p class="status" id="status">Ready.</p>
+      <p id="status" class="status" role="status">Loading…</p>
     </section>
   </aside>
 </main>
+
+<footer class="foot">
+  <p>Sunset Cover Studio — your photos stay on your machine. Fonts: Anton &amp; Pacifico (SIL Open Font License). Original art, no Rockstar Games content.</p>
+</footer>
 
 <script type="module" src="src/app.js"></script>
 </body>
