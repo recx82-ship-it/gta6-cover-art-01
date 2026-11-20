@@ -11,8 +11,8 @@ machine, there is no upload, no account and no watermark.
 
 ## What it does
 
-- **Any photo, up to 4** — pick files or drag and drop them onto the cover.
-  Each panel takes its own photo, or one photo can fill every panel.
+- **Any photo, up to 4** — pick files or drag them onto the cover. Each
+  panel takes its own photo, or one photo can fill every panel.
 - **Six multi-panel layouts** — Full Bleed, Duo Split, Hero + Two, Four Grid,
   Tilted Snaps (a rotated snapshot collage) and Strip Trio, in the poster's
   inked white-band style with a Vice City sunset backdrop, sun disc and palm
@@ -23,7 +23,7 @@ machine, there is no upload, no account and no watermark.
   with a neon script subtitle (bundled Pacifico, SIL OFL), colour and
   top/bottom position.
 - **Vice City neon-sunset grades** — Sunset, Neon Vice, Heat, Teal Noir and
-  Mono Pop, plus halftone dots, grain, vignette and inked borders.
+  Mono Pop, plus halftone dots, grain, vignette and a Vice badge.
 - **One-click export** — PNG at 1080 × 1080, 1080 × 1350 and 1920 × 1080,
   individually or all three at once. Photo in, PNG out in a few clicks.
 
@@ -42,8 +42,7 @@ node serve.ts
 - `app/src/app.js` — editor wiring, export and screenshot scenes
 - `app/fonts/` — Anton and Pacifico (SIL Open Font License, texts beside them)
 - `app/samples/` — the kit's two sample photos, free to use
-- `main.ts` — hands the app in: copies `app/` and `screenshots/` to `/output`
-  and writes `dossier.json`
+- `main.ts` — hands the app in: checks the entry, copies `app/` and `screenshots/` to `/output` and writes `dossier.json`
 - `screenshots/` — the cover and the editor at work, taken with headless Chrome
 
 ## Build the hand-in
