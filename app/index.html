@@ -3,85 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sunset Cover Studio — GTA-style cover maker</title>
-<link rel="stylesheet" href="style.css">
+<title>Sunset Cover Studio — GTA-style cover art maker</title>
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<header class="topbar">
-  <div class="brand"><span class="brand-star">★</span> Sunset Cover Studio</div>
-  <p class="tagline">Turn any photo into GTA-style poster cover art — offline, in your browser.</p>
-</header>
+<main class="app">
+  <section class="controls" aria-label="Cover controls">
+    <h1>Sunset Cover Studio</h1>
+    <p class="tagline">Your photo + a caption, made into GTA-style poster cover art. Photos never leave your machine.</p>
 
-<main class="studio">
-  <section class="preview-pane">
-    <canvas id="preview" width="1080" height="1080" aria-label="Cover preview"></canvas>
-    <p class="hint">Drag the cover to pan the active panel · scroll to zoom it · click a panel below to switch it.</p>
-    <div id="slots" class="slots" aria-label="Panels"></div>
+    <h2>1 · Photos</h2>
+    <label>Photo A <input id="photo-0" type="file" accept="image/*"></label>
+    <button id="sample-0" type="button">Use sample: Pier</button>
+    <label>Photo B <input id="photo-1" type="file" accept="image/*"></label>
+    <button id="sample-1" type="button">Use sample: Boulevard</button>
+    <label>Photo C <input id="photo-2" type="file" accept="image/*"></label>
+    <button id="sample-2" type="button">Use sample: Pier</button>
+
+    <h2>2 · Panels</h2>
+    <label>Panel
+      <select id="active-panel">
+        <option value="0">Panel 1 — hero</option>
+        <option value="1">Panel 2</option>
+        <option value="2">Panel 3</option>
+      </select>
+    </label>
+    <label>Photo in this panel
+      <select id="panel-photo">
+        <option value="0">Photo A</option>
+        <option value="1">Photo B</option>
+        <option value="2">Photo C</option>
+        <option value="-1">Sunset sky (no photo)</option>
+      </select>
+    </label>
+    <label>Zoom <span id="zoom-value">100%</span>
+      <input id="panel-zoom" type="range" min="1" max="2.5" step="0.05" value="1">
+    </label>
+    <label>Move left / right
+      <input id="panel-pan-x" type="range" min="-1" max="1" step="0.05" value="0">
+    </label>
+    <label>Move up / down
+      <input id="panel-pan-y" type="range" min="-1" max="1" step="0.05" value="0">
+    </label>
+
+    <h2>3 · Layout &amp; grade</h2>
+    <div id="layouts" class="picker" role="group" aria-label="Layout"></div>
+    <div id="grades" class="picker" role="group" aria-label="Colour grade"></div>
+    <label>Grade strength <span id="strength-value">85%</span>
+      <input id="strength" type="range" min="0" max="1" step="0.05" value="0.85">
+    </label>
+
+    <h2>4 · Words</h2>
+    <label>Kicker <input id="kicker" type="text" maxlength="30" value="Sunset City"></label>
+    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
+    <label>Sub-caption <input id="subcaption" type="text" maxlength="60" value="Neon nights • One last ride"></label>
+
+    <h2>5 · Export PNG</h2>
+    <div id="exports" class="exports"></div>
+    <p id="status" role="status"></p>
   </section>
-
-  <aside class="controls">
-    <section class="group">
-      <h2>1 · Photos</h2>
-      <label class="upload" for="photo">＋ Add photos from your machine</label>
-      <input id="photo" type="file" accept="image/*" multiple hidden>
-      <p class="note">Up to 4 photos. They never leave your machine — nothing is uploaded.</p>
-      <div id="thumbs" class="thumbs" aria-label="Your photos"></div>
-      <button id="shuffle" type="button" class="ghost">Shuffle crops</button>
-    </section>
-
-    <section class="group">
-      <h2>2 · Layout</h2>
-      <div id="layouts" class="picker" aria-label="Layout"></div>
-    </section>
-
-    <section class="group">
-      <h2>3 · Colour grade</h2>
-      <div id="grades" class="picker" aria-label="Colour grade"></div>
-    </section>
-
-    <section class="group">
-      <h2>4 · Caption</h2>
-      <label class="field">Title
-        <input id="title" type="text" value="Sunset Heist" maxlength="24">
-      </label>
-      <label class="field">Subtitle
-        <input id="subtitle" type="text" value="Vice Coast nights" maxlength="32">
-      </label>
-      <div class="row">
-        <label class="field">Title colour
-          <input id="title-color" type="color" value="#ffffff">
-        </label>
-        <label class="field">Caption position
-          <select id="caption-pos">
-            <option value="bottom" selected>Bottom</option>
-            <option value="top">Top</option>
-          </select>
-        </label>
-      </div>
-    </section>
-
-    <section class="group">
-      <h2>5 · Finish</h2>
-      <div class="checks">
-        <label><input id="fx-halftone" type="checkbox" checked> Halftone dots</label>
-        <label><input id="fx-grain" type="checkbox" checked> Film grain</label>
-        <label><input id="fx-vignette" type="checkbox" checked> Vignette</label>
-        <label><input id="fx-badge" type="checkbox" checked> Vice badge</label>
-      </div>
-      <div id="sizes" class="picker" aria-label="Export size"></div>
-      <div class="row">
-        <button id="export-one" type="button" class="primary">Export PNG</button>
-        <button id="export-all" type="button" class="primary wide">Export all 3 sizes</button>
-      </div>
-      <p id="status" class="status" role="status">Loading…</p>
-    </section>
-  </aside>
+  <section class="preview" aria-label="Cover preview">
+    <canvas id="cover" width="720" height="720" aria-label="The cover"></canvas>
+  </section>
 </main>
-
-<footer class="foot">
-  <p>Sunset Cover Studio — your photos stay on your machine. Fonts: Anton &amp; Pacifico (SIL Open Font License). Original art, no Rockstar Games content.</p>
-</footer>
-
-<script type="module" src="src/app.js"></script>
+<script type="module" src="./src/main.js"></script>
 </body>
 </html>
